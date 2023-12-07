@@ -1,0 +1,7 @@
+cargo:rerun-if-changed=/Users/gavinwang/CODE/rust-os/Cargo.toml
+cargo:rustc-link-search=native=/Users/gavinwang/CODE/rust-os/target/bootimage/bootloader/x86_64-bootloader/release/build/bootloader-a180e5e8c9124dbd/out
+cargo:rustc-link-lib=static=kernel_bin-rust-os
+cargo:rerun-if-env-changed=KERNEL
+cargo:rerun-if-env-changed=KERNEL_MANIFEST
+cargo:rerun-if-changed=/Users/gavinwang/CODE/rust-os/target/x86_64-rust_os/debug/rust-os
+cargo:rerun-if-changed=build.rs
