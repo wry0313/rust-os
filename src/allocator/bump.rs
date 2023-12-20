@@ -1,4 +1,6 @@
-use core::alloc::{GlobalAlloc, Layout};
+use core::{alloc::{GlobalAlloc, Layout}, ptr};
+
+use super::{Locked, align_up};
 
 pub struct BumpAllocator {
     heap_start: usize,
@@ -7,35 +9,34 @@ pub struct BumpAllocator {
     allocations: usize,
 }
 
-pub struct Locked<A> {
-    inner: spin::Mutex<A>,
-}
-
-impl <A> Locked<A> {
-    pub const fn new(inner: A) -> Self {
-        Locked {
-            inner: spin::Mutex::new(inner),
-        }
-    }
-
-    pub fn lock(&self) -> spin::MutexGuard<A> {
-        self.inner.lock()
-    }
-}
 
 
 unsafe impl GlobalAlloc for Locked<BumpAllocator> {
     unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
         let mut bump = self.lock();
 
-        let alloc_start = bump.next;
-        bump.next = alloc_start + layout.size();
-        bump.allocations += 1;
-        alloc_start as *mut u8
+        let alloc_start = align_up(bump.next, layout.align());
+        let alloc_end = match alloc_start.checked_add(layout.size()) {
+            Some(end) => end,
+            None => return ptr::null_mut(),
+        };
+
+        if alloc_end > bump.heap_end {
+            ptr::null_mut()
+        } else {
+            bump.next = alloc_end;
+            bump.allocations += 1;
+            alloc_start as *mut u8
+        }
     }
 
     unsafe fn dealloc(&self, _ptr: *mut u8, _layout: Layout) {
-        panic!("dealloc should be never called")
+        let mut bump = self.lock();
+
+        bump.allocations -= 1;
+        if bump.allocations == 0 {
+            bump.next = bump.heap_start;
+        }
     }
 }
 
