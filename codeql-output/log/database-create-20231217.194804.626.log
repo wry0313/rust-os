@@ -1,0 +1,201 @@
+[2023-12-17 19:48:04] This is codeql database create codeql-output --language=C/C++ --command=make
+[2023-12-17 19:48:04] Log file was started late.
+[2023-12-17 19:48:04] [PROGRESS] database create> Initializing database at /Users/gavinwang/CODE/rust-os/codeql-output.
+[2023-12-17 19:48:04] Running plumbing command: codeql database init --language=C/C++ --extractor-options-verbosity=1 --qlconfig-file=/Users/gavinwang/CODE/rust-os/qlconfig.yml --source-root=/Users/gavinwang/CODE/rust-os --allow-missing-source-root=false --allow-already-existing -- /Users/gavinwang/CODE/rust-os/codeql-output
+[2023-12-17 19:48:04] Calling plumbing command: codeql resolve languages --extractor-options-verbosity=1 --format=betterjson
+[2023-12-17 19:48:04] [DETAILS] resolve languages> Scanning for [codeql-extractor.yml] from /Users/gavinwang/codeql/.codeqlmanifest.json
+[2023-12-17 19:48:04] [DETAILS] resolve languages> Parsing /Users/gavinwang/codeql/go/codeql-extractor.yml.
+[2023-12-17 19:48:04] [DETAILS] resolve languages> Parsing /Users/gavinwang/codeql/python/codeql-extractor.yml.
+[2023-12-17 19:48:04] [DETAILS] resolve languages> Parsing /Users/gavinwang/codeql/java/codeql-extractor.yml.
+[2023-12-17 19:48:04] [DETAILS] resolve languages> Parsing /Users/gavinwang/codeql/html/codeql-extractor.yml.
+[2023-12-17 19:48:04] [DETAILS] resolve languages> Parsing /Users/gavinwang/codeql/xml/codeql-extractor.yml.
+[2023-12-17 19:48:04] [DETAILS] resolve languages> Parsing /Users/gavinwang/codeql/properties/codeql-extractor.yml.
+[2023-12-17 19:48:04] [DETAILS] resolve languages> Parsing /Users/gavinwang/codeql/cpp/codeql-extractor.yml.
+[2023-12-17 19:48:04] [DETAILS] resolve languages> Parsing /Users/gavinwang/codeql/swift/codeql-extractor.yml.
+[2023-12-17 19:48:04] [DETAILS] resolve languages> Parsing /Users/gavinwang/codeql/csv/codeql-extractor.yml.
+[2023-12-17 19:48:04] [DETAILS] resolve languages> Parsing /Users/gavinwang/codeql/yaml/codeql-extractor.yml.
+[2023-12-17 19:48:04] [DETAILS] resolve languages> Parsing /Users/gavinwang/codeql/csharp/codeql-extractor.yml.
+[2023-12-17 19:48:04] [DETAILS] resolve languages> Parsing /Users/gavinwang/codeql/javascript/codeql-extractor.yml.
+[2023-12-17 19:48:04] [DETAILS] resolve languages> Parsing /Users/gavinwang/codeql/ruby/codeql-extractor.yml.
+[2023-12-17 19:48:04] Plumbing command codeql resolve languages completed:
+                      {
+                        "aliases" : {
+                          "c" : "cpp",
+                          "c++" : "cpp",
+                          "c-c++" : "cpp",
+                          "c-cpp" : "cpp",
+                          "c#" : "csharp",
+                          "java-kotlin" : "java",
+                          "kotlin" : "java",
+                          "javascript-typescript" : "javascript",
+                          "typescript" : "javascript"
+                        },
+                        "extractors" : {
+                          "go" : [
+                            {
+                              "extractor_root" : "/Users/gavinwang/codeql/go"
+                            }
+                          ],
+                          "python" : [
+                            {
+                              "extractor_root" : "/Users/gavinwang/codeql/python",
+                              "extractor_options" : {
+                                "logging" : {
+                                  "title" : "Options pertaining to logging.",
+                                  "description" : "Options pertaining to logging.",
+                                  "type" : "object",
+                                  "properties" : {
+                                    "verbosity" : {
+                                      "title" : "Python extractor logging verbosity level.",
+                                      "description" : "Controls the level of verbosity of the CodeQL Python extractor.\nThe supported levels are (in order of increasing verbosity):\n\n  - off\n  - errors\n  - warnings\n  - info or progress\n  - debug or progress+\n  - trace or progress++\n  - progress+++\n",
+                                      "type" : "string",
+                                      "pattern" : "^(off|errors|warnings|(info|progress)|(debug|progress\\+)|(trace|progress\\+\\+)|progress\\+\\+\\+)$"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "java" : [
+                            {
+                              "extractor_root" : "/Users/gavinwang/codeql/java",
+                              "extractor_options" : {
+                                "exclude" : {
+                                  "title" : "A glob excluding files from analysis.",
+                                  "description" : "A glob indicating what files to exclude from the analysis.\n",
+                                  "type" : "string"
+                                },
+                                "add_prefer_source" : {
+                                  "title" : "Whether to always prefer source files over class files.",
+                                  "description" : "A value indicating whether source files should be preferred over class files. If set to 'true', the extraction adds '-Xprefer:source' to the javac command line. If set to 'false', the extraction uses the default javac behavior ('-Xprefer:newer'). The default is 'true'.\n",
+                                  "type" : "string",
+                                  "pattern" : "^(false|true)$"
+                                },
+                                "buildless" : {
+                                  "title" : "Whether to use buildless (standalone) extraction (experimental).",
+                                  "description" : "A value indicating, which type of extraction the autobuilder should perform. If 'true', then the standalone extractor will be used, otherwise tracing extraction will be performed. The default is 'false'. Note that buildless extraction will generally yield less accurate analysis results, and should only be used in cases where it is not possible to build the code (for example if it uses inaccessible dependencies).\n",
+                                  "type" : "string",
+                                  "pattern" : "^(false|true)$"
+                                }
+                              }
+                            }
+                          ],
+                          "html" : [
+                            {
+                              "extractor_root" : "/Users/gavinwang/codeql/html"
+                            }
+                          ],
+                          "xml" : [
+                            {
+                              "extractor_root" : "/Users/gavinwang/codeql/xml"
+                            }
+                          ],
+                          "properties" : [
+                            {
+                              "extractor_root" : "/Users/gavinwang/codeql/properties"
+                            }
+                          ],
+                          "cpp" : [
+                            {
+                              "extractor_root" : "/Users/gavinwang/codeql/cpp"
+                            }
+                          ],
+                          "swift" : [
+                            {
+                              "extractor_root" : "/Users/gavinwang/codeql/swift"
+                            }
+                          ],
+                          "csv" : [
+                            {
+                              "extractor_root" : "/Users/gavinwang/codeql/csv"
+                            }
+                          ],
+                          "yaml" : [
+                            {
+                              "extractor_root" : "/Users/gavinwang/codeql/yaml"
+                            }
+                          ],
+                          "csharp" : [
+                            {
+                              "extractor_root" : "/Users/gavinwang/codeql/csharp",
+                              "extractor_options" : {
+                                "trap" : {
+                                  "title" : "Options pertaining to TRAP.",
+                                  "description" : "Options pertaining to TRAP.",
+                                  "type" : "object",
+                                  "properties" : {
+                                    "compression" : {
+                                      "title" : "Controls compression for the TRAP files written by the extractor.",
+                                      "description" : "This option is only intended for use in debugging the extractor. Accepted values are 'brotli' (the default, to write brotli-compressed TRAP), 'gzip', and 'none' (to write uncompressed TRAP).\n",
+                                      "type" : "string",
+                                      "pattern" : "^(none|gzip|brotli)$"
+                                    }
+                                  }
+                                },
+                                "buildless" : {
+                                  "title" : "Whether to use buildless (standalone) extraction.",
+                                  "description" : "A value indicating, which type of extraction the autobuilder should perform. If 'true', then the standalone extractor will be used, otherwise tracing extraction will be performed. The default is 'false'. Note that buildless extraction will generally yield less accurate analysis results, and should only be used in cases where it is not possible to build the code (for example if it uses inaccessible dependencies).\n",
+                                  "type" : "string",
+                                  "pattern" : "^(false|true)$"
+                                },
+                                "cil" : {
+                                  "title" : "Whether to enable CIL extraction.",
+                                  "description" : "A value indicating, whether CIL extraction should be enabled. The default is 'true'.\n",
+                                  "type" : "string",
+                                  "pattern" : "^(false|true)$"
+                                }
+                              }
+                            }
+                          ],
+                          "javascript" : [
+                            {
+                              "extractor_root" : "/Users/gavinwang/codeql/javascript",
+                              "extractor_options" : { }
+                            }
+                          ],
+                          "ruby" : [
+                            {
+                              "extractor_root" : "/Users/gavinwang/codeql/ruby",
+                              "extractor_options" : {
+                                "trap" : {
+                                  "title" : "Options pertaining to TRAP.",
+                                  "description" : "Options pertaining to TRAP.",
+                                  "type" : "object",
+                                  "properties" : {
+                                    "compression" : {
+                                      "title" : "Controls compression for the TRAP files written by the extractor.",
+                                      "description" : "This option is only intended for use in debugging the extractor. Accepted values are 'gzip' (the default, to write gzip-compressed TRAP) and 'none' (to write uncompressed TRAP).\n",
+                                      "type" : "string",
+                                      "pattern" : "^(none|gzip)$"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+[2023-12-17 19:48:04] [PROGRESS] database init> Calculating baseline information in /Users/gavinwang/CODE/rust-os
+[2023-12-17 19:48:04] [SPAMMY] database init> Ignoring the following directories when processing baseline information: .git, .hg, .svn.
+[2023-12-17 19:48:04] [DETAILS] database init> Running command in /Users/gavinwang/CODE/rust-os: /Users/gavinwang/codeql/tools/osx64/scc --by-file --exclude-dir .git,.hg,.svn --format json --no-large --no-min .
+[2023-12-17 19:48:04] [PROGRESS] database init> Calculated baseline information for languages:  (31ms).
+[2023-12-17 19:48:04] [PROGRESS] database init> Resolving extractor C/C++.
+[2023-12-17 19:48:04] Exception caught at top level: There's no CodeQL extractor named 'C/C++' installed.
+                      java.base/java.util.Optional.map(Unknown Source)
+                      com.semmle.util.data.Result.getOrThrow(Result.java:31)
+                      com.semmle.cli2.database.InitCommand.initOneDatabase(InitCommand.java:399)
+                      com.semmle.cli2.database.InitCommand.executeSubcommand(InitCommand.java:225)
+                      com.semmle.cli2.picocli.SubcommandCommon.lambda$executeSubcommandWithMessages$5(SubcommandCommon.java:803)
+                      com.semmle.cli2.picocli.SubcommandCommon.withCompilationMessages(SubcommandCommon.java:442)
+                      com.semmle.cli2.picocli.SubcommandCommon.executeSubcommandWithMessages(SubcommandCommon.java:801)
+                      com.semmle.cli2.picocli.PlumbingRunner.run(PlumbingRunner.java:119)
+                      com.semmle.cli2.picocli.SubcommandCommon.runPlumbingInProcess(SubcommandCommon.java:199)
+                      com.semmle.cli2.database.CreateCommand.executeSubcommand(CreateCommand.java:108)
+                      com.semmle.cli2.picocli.SubcommandCommon.lambda$executeSubcommandWithMessages$5(SubcommandCommon.java:803)
+                      com.semmle.cli2.picocli.SubcommandCommon.withCompilationMessages(SubcommandCommon.java:442)
+                      com.semmle.cli2.picocli.SubcommandCommon.executeSubcommandWithMessages(SubcommandCommon.java:801)
+                      com.semmle.cli2.picocli.SubcommandCommon.toplevelMain(SubcommandCommon.java:685)
+                      com.semmle.cli2.picocli.SubcommandCommon.call(SubcommandCommon.java:666)
+                      com.semmle.cli2.picocli.SubcommandMaker.runMain(SubcommandMaker.java:237)
+                      com.semmle.cli2.picocli.SubcommandMaker.runMain(SubcommandMaker.java:247)
+                      com.semmle.cli2.CodeQL.main(CodeQL.java:115)
