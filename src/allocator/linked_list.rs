@@ -1,7 +1,5 @@
 use core::{mem, alloc::{GlobalAlloc, Layout}, ptr};
 
-use alloc::collections::LinkedList;
-
 use crate::allocator::align_up;
 
 use super::Locked;

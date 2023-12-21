@@ -14,6 +14,7 @@ use self::linked_list::LinkedListAllocator;
 
 pub mod bump;
 pub mod linked_list;
+pub mod fixed_size_block;
 
 #[global_allocator]
 static ALLOCATOR: Locked<LinkedListAllocator> = Locked::new(LinkedListAllocator::new());
