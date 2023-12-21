@@ -1,6 +1,10 @@
-use core::mem;
+use core::{mem, alloc::{GlobalAlloc, Layout}, ptr};
+
+use alloc::collections::LinkedList;
 
 use crate::allocator::align_up;
+
+use super::Locked;
 
 struct ListNode {
     size: usize,
@@ -83,6 +87,34 @@ impl LinkedListAllocator {
 
         Ok(alloc_start)
     }
+}
 
-    
+unsafe impl GlobalAlloc for Locked<LinkedListAllocator> {
+    unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
+        let (size, align) = LinkedListAllocator::size_align(layout);
+        let mut allocator = self.lock();
+
+        if let Some((region, alloc_start)) = allocator.find_region(size, align) {
+            let alloc_end = alloc_start.checked_add(size).expect("overflow");
+            let excess_size = region.end_addr() - alloc_end;
+            if excess_size > 0 {
+                allocator.add_free_region(alloc_end, excess_size);
+            }
+            alloc_start as *mut u8
+        } else {
+            ptr::null_mut()
+        }
+    }
+
+    unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout) {
+        todo!()
+    }
+}
+
+impl LinkedListAllocator {
+    fn size_align(layout: Layout) -> (usize, usize) {
+        let layout = layout.align_to(mem::align_of::<ListNode>()).expect("adjusting alignment failed").pad_to_align();
+        let size = layout.size().max(mem::size_of::<ListNode>());
+        (size, layout.align())
+    }
 }
